@@ -3,7 +3,7 @@ from fastapi import FastAPI # Framework FastAPI
 from firebase import firebase # Conexion a Firebase
 from pydantic import BaseModel
 from datetime import datetime # Para obtener la hora actual
-
+import pytz  # Para manejar zonas horarias
 app = FastAPI()
 
 # Configuracion de firebase
@@ -25,7 +25,12 @@ firebase = firebase.FirebaseApplication(firebaseConfig["databaseURL"], None)
 class Esp32(BaseModel):
     humedad: float
     temperatura:float
-
+# Función para obtener la hora actual en la zona horaria de México
+def obtener_hora_actual():
+    zona_horaria = pytz.timezone("America/Mexico_City")
+    hora_actual = datetime.now(zona_horaria).strftime("%Y-%m-%d %H:%M:%S")
+    return hora_actual
+  
 # Obtener todos los datos
 @app.get("/")
 def read_root():
@@ -34,8 +39,7 @@ def read_root():
 # Obtener un dato en especifico
 @app.post("/items2")
 def add_item2(item: Esp32):
-    hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+    hora_actual = obtener_hora_actual()
     result = firebase.post("/esp32/item2", {
         "TEMPERATURA": item.temperatura,
         "HUMEDAD": item.humedad,
@@ -45,8 +49,7 @@ def add_item2(item: Esp32):
 
 @app.post("/items")
 def add_item(item: Esp32):
-    hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+    hora_actual = obtener_hora_actual()
     result = firebase.post("/esp32/item", {
         "TEMPERATURA": item.temperatura,
         "HUMEDAD": item.humedad,
