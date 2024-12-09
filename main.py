@@ -2,6 +2,7 @@ from typing import Union
 from fastapi import FastAPI # Framework FastAPI
 from firebase import firebase # Conexion a Firebase
 from pydantic import BaseModel
+from datetime import datetime # Para obtener la hora actual
 
 app = FastAPI()
 
@@ -33,16 +34,22 @@ def read_root():
 # Obtener un dato en especifico
 @app.post("/items2")
 def add_item2(item: Esp32):
+    hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
     result = firebase.post("/esp32/item2", {
         "TEMPERATURA": item.temperatura,
-        "HUMEDAD": item.humedad
+        "HUMEDAD": item.humedad,
+        "HORA": hora_actual
     })
     return result, 
 
 @app.post("/items")
 def add_item(item: Esp32):
-    result = firebase.post("/esp32/item", {
+    hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    result = firebase.post("/esp32/items", {
         "TEMPERATURA": item.temperatura,
-        "HUMEDAD": item.humedad
+        "HUMEDAD": item.humedad,
+        "HORA": hora_actual
     })
     return result
