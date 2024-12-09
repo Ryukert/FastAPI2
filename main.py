@@ -47,7 +47,7 @@ def add_item2(item: Esp32):
 def add_item(item: Esp32):
     hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    result = firebase.post("/esp32/items", {
+    result = firebase.post("/esp32/item", {
         "TEMPERATURA": item.temperatura,
         "HUMEDAD": item.humedad,
         "HORA": hora_actual
