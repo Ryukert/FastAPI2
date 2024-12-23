@@ -37,14 +37,6 @@ def read_root():
     return firebase.get("/esp32/item", "")
 
 # Obtener un dato en especifico
-  @app.post("/items3")
-def add_item2(item: Esp32):
-    hora_actual = obtener_hora_actual()
-    result = firebase.post("/esp32/item3", {
-        "TEMPERATURA": item.temperatura,
-        "HUMEDAD": item.humedad,
-        "HORA": hora_actual
-    })
     return result, 
 @app.post("/items2")
 def add_item2(item: Esp32):
