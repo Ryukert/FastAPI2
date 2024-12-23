@@ -46,6 +46,17 @@ def add_item2(item: Esp32):
         "HORA": hora_actual
     })
     return result, 
+  
+  @app.post("/items3")
+def add_item2(item: Esp32):
+    hora_actual = obtener_hora_actual()
+    result = firebase.post("/esp32/item2", {
+        "TEMPERATURA": item.temperatura,
+        "HUMEDAD": item.humedad,
+        "HORA": hora_actual
+    })
+    return result, 
+  
 
 @app.post("/items")
 def add_item(item: Esp32):
