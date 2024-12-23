@@ -50,7 +50,7 @@ def add_item2(item: Esp32):
   @app.post("/items3")
 def add_item2(item: Esp32):
     hora_actual = obtener_hora_actual()
-    result = firebase.post("/esp32/item2", {
+    result = firebase.post("/esp32/item3", {
         "TEMPERATURA": item.temperatura,
         "HUMEDAD": item.humedad,
         "HORA": hora_actual
