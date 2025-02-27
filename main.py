@@ -9,7 +9,7 @@ app = FastAPI()
 
 cred = credentials.Certificate("triodeaceleradores-firebase-adminsdk-fbsvc-6448d15405.json")  
 firebase_admin.initialize_app(cred, {
-    "databaseURL": "https://triodeaceleradores-default-rtdb.firebaseio.com/"
+    "databaseURL": "https://triodeaceleradores-default-rtdb.firebaseio.com"
 })
 
 
